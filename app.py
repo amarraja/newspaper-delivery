@@ -89,7 +89,7 @@ class ArticleSimple(Resource):
                 'top_image': article.top_img,
                 'images': [x for x in article.imgs],
                 'text': text,
-                'html': article.article_html,
+                # 'html': article.article_html,
                 'keywords': article.keywords,
                 'authors': article.authors,
                 'summary': article.summary,
