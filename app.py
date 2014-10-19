@@ -27,7 +27,7 @@ def clean_article_html(cls, node):
     article_cleaner.remove_unknown_tags = False
     return article_cleaner.clean_html(node)
 
-Parser.clean_article_html = classmethod(clean_article_html)
+# Parser.clean_article_html = classmethod(clean_article_html)
 
 import newspaper
 
@@ -61,6 +61,7 @@ article_parser.add_argument('format', type=unicode, help='Format of article in j
 article_parser.add_argument('markdownify', type=bool, help='Should the text of the article be markdown', default=True)
 article_parser.add_argument('include_summary', type=bool, help='Should a nlp summary be included', default=False)
 article_parser.add_argument('redirect', type=unicode, help='Should redirect to another program', default='')
+article_parser.add_argument('og_image', type=bool, help='Should inclide a Facebook opengraph image', default=True)
 
 
 class ArticleSimple(Resource):
@@ -102,6 +103,11 @@ class ArticleSimple(Resource):
                 'movies': article.movies,
                 'additional_data': article.additional_data,
             }
+
+            if args['og_image']:
+                og = article.doc.xpath("//meta[@property='og:image']/@content")
+                if len(og) > 0:
+                    data['opengraph_image'] = og[0]
 
             if output_format == 'json':
                 return output_json(data, 200, { 'Content-Type' : 'application/json' })
