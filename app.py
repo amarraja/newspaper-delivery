@@ -104,7 +104,7 @@ class ArticleSimple(Resource):
             }
 
             if output_format == 'json':
-                return output_json(data, 200, {})
+                return output_json(data, 200, { 'Content-Type' : 'application/json' })
 
             if output_format == 'text':
                 output = u'---\n'
