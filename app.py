@@ -31,6 +31,9 @@ def clean_article_html(cls, node):
 
 import newspaper
 
+from newspaper import images
+images.minimal_area = 15000
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
