@@ -34,6 +34,18 @@ import newspaper
 from newspaper import images
 images.minimal_area = 15000
 
+import logging
+import sys
+
+root = logging.getLogger()
+root.setLevel(logging.DEBUG)
+
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+root.addHandler(ch)
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
