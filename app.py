@@ -90,6 +90,14 @@ class ArticleSimple(Resource):
             abort(404)
         else:
             article.parse()
+            if isinstance(article.title, unicode):
+                print "Rencoding article title"
+                article.set_title(article.title.encode('ascii', 'ignore'))
+
+            if isinstance(article.text, unicode):
+                print "Rencoding article text"
+                article.set_text(article.text.encode('ascii', 'ignore'))
+
             article.nlp()
 
             markdownify = bool(args['markdownify'])
